@@ -1,0 +1,2 @@
+class WouldYouRatherController < ApplicationController
+end

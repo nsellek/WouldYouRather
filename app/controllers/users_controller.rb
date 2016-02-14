@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
+  skip_before_action :require_login, only: [:new, :create]
 
   # GET /users
   # GET /users.json
@@ -28,7 +29,7 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       if @user.save
-        format.html { redirect_to @user, notice: 'User was successfully created.' }
+        format.html { redirect_to :users, notice: 'User was successfully created.' }
         format.json { render :show, status: :created, location: @user }
       else
         format.html { render :new }
@@ -62,6 +63,10 @@ class UsersController < ApplicationController
   end
 
   private
+
+    def not_authenticated
+      redirect_to login_path, alert: "Please login first"
+    end
     # Use callbacks to share common setup or constraints between actions.
     def set_user
       @user = User.find(params[:id])
