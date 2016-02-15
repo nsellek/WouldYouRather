@@ -1,6 +1,7 @@
 class WouldYouRatherController < ApplicationController
 
 	def index
+    @would_you_rathers = WouldYouRather.all
 	end
 
 	def show
